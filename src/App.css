@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+*{
+  box-sizing: border-box;
+}
+.error{
+    color: #ff0000 !important;
+    margin-bottom: 0 !important;
+    margin-top: 5px !important;
+    font-size: 14px;
+
+}
