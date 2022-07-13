@@ -6,7 +6,7 @@ type Tprops = {
 
 }
 export const RootRoutes: React.FC<Tprops> = () => {
-    const isValid = false;
+    const isValid = true;
     return (
         isValid ? <PrivateRoutes /> : <PublicRoutes />
     )

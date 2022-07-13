@@ -3,9 +3,11 @@ import './styles.scss'
 
 type RadioButtonProps = {
     label: string,
+    value: string,
+    register?: any
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-export const RadioButton: React.FC<RadioButtonProps> = ({ label, value, checked, onChange, ...props }) => {
+export const RadioButton: React.FC<RadioButtonProps> = ({ label, value, checked, register, onChange, ...props }) => {
     return (
         <label className="radioButton">
             <input
@@ -16,7 +18,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({ label, value, checked,
                 data-checked={checked}
                 {...props}
             />
-            {label}
+            <p>{label}</p>
         </label>
     );
 }

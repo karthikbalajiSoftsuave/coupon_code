@@ -9,7 +9,7 @@ export const PrivateRoutes: React.FC<Tprops> = () => {
     return (
         <>
             <Routes>
-                <Route path="/*" element={<Navigate replace to="/coupon-code/coupon" />} />
+                <Route path="/*" element={<Navigate replace to="/coupon-code/coupons" />} />
                 <Route path='coupon-code/*' element={<Layout />} />
             </Routes>
         </>

@@ -20,7 +20,7 @@ type Tprops = {
 
 export const Sidebar: React.FC<Tprops> = () => {
     return (
-        <section>
+        <section className="headerCon">
             <div className="menu-header">
                 {/* <img className="menu-logo" alt="logo" draggable="false" src={PoorvikaIcon} /> */}
                 <img className="menu-color-logo" alt="menu-logo" draggable="false" src={PoorvikaLogo} />
@@ -52,6 +52,14 @@ export const Sidebar: React.FC<Tprops> = () => {
                             activeIcon={HistoryActive}
                             inActiveIcon={HistoryInactive}
                         />
+                        <div className="logOut">
+                            <SideMenuItem
+                                label="Sign out"
+                                path="/coupon-code/dashboard"
+                                activeIcon={DashboardActive}
+                                inActiveIcon={DashboardInactive}
+                            />
+                        </div>
                     </>
                 </div>
             </div>

@@ -138,3 +138,32 @@
       }
     }
   }
+  .headerCon{
+    min-width: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    .menu-header{
+      padding: 30px 25px;
+    }
+    .menu-body{
+      height: 100%;
+      .menu-list{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .logOut{
+          margin-top: auto;
+          padding: 10px 20px;
+          .side-menu-item{
+            .menu-link{
+              border-radius: 10px;
+              background-color: #FFF1E6;
+              color: #FB6C00;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
