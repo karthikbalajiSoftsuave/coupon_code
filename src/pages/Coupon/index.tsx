@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { MenuButton } from "../../components/MenuButton";
 import { ClaimRules } from "./ClaimRules";
 import { CouponGeneration } from "./CouponGeneration";
