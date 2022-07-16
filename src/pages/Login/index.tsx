@@ -1,10 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import PoorvikaLogo from "../../assets/icons/poorvika_logo.svg"
 import LoginBanner from "../../assets/images/login-banner.svg"
+import { showNotification, STATUS } from "../../common/constants";
 import { ActionButton } from "../../components/ActionButton";
 import { TextBox } from "../../components/TextBox";
+import { ILogin } from "../../interface/login.interface";
+import { setUserDetails } from "../../redux/Actions/actions";
+import { AuthService } from "../../services/classService/authService";
+import { LoginService } from "../../services/functionalService/authService";
 import "./styles.scss"
 
 type Tprops = {
@@ -19,9 +25,23 @@ type formFields = {
 export const LoginPage: React.FC<Tprops> = () => {
 
     const { register, setValue, handleSubmit, formState: { errors } } = useForm<formFields>({ mode: "all" });
+    const dispatch = useDispatch()
+    const authService = new AuthService()
 
-    const onSubmit = (values: formFields) => {
-        console.log("values", values)
+    const onSubmit = async (values: formFields) => {
+        const loginData: ILogin = {
+            email: values?.email,
+            password: values?.password,
+        }
+        const login = await authService.SignIn(loginData)
+
+        if (login.status === STATUS.SUCCESS) {
+            dispatch(setUserDetails(login?.data))
+            showNotification(STATUS.SUCCESS, login?.message)
+        }
+        else {
+            showNotification(STATUS.FAILURE, login?.message)
+        }
     }
 
     const validations = {
@@ -78,10 +98,10 @@ export const LoginPage: React.FC<Tprops> = () => {
                                 <label htmlFor="">I agree to Poorvika’s <span>Privacy Policy & Terms</span></label>
                                 {errors.isTerms?.type && <p className="error">{errors.isTerms.message ?? ""}</p>}
                             </div>
-                            <ActionButton type="submit" variant="primary" name="Submit"  /> 
+                            <ActionButton type="submit" variant="primary" name="Submit" />
                         </form>
                         <a href="#">Forgot Password?</a>
-                        <ActionButton variant="secondary" name="SSO Login"  /> 
+                        <ActionButton variant="secondary" name="SSO Login" />
                     </div>
                 </div>
             </div>

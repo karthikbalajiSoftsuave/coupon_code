@@ -21,7 +21,7 @@ export const RadioGroup: React.FC<Tprops> = ({ register, formValue, options, def
     }, [defaultValue])
 
     return (
-        <div className="options-radio" onChange={(e: any) => handleOnChange(e.target.value)}>
+        <div className="options-radio" {...register} onChange={(e: any) => handleOnChange(e.target.value)}>
             {options.map((data: string) => <label className="radioButton">
                 <input
                     type="radio"

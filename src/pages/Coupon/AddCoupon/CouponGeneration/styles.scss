@@ -22,7 +22,7 @@
 
         .coupon-generation-page-option {
             padding: 20px;
-            height: 140px;
+            // height: 140px;
             width: 100%;
 
             .option-label {
@@ -40,9 +40,9 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                height: 100px;
-                padding-top: 20px;
-                padding-bottom: 30px;
+                height: auto;
+                padding-top: 33px;
+                padding-bottom: 3px;
                 .radioButton{
                     width: 100%;
                     display: flex;
@@ -69,16 +69,16 @@
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: center;
-                height: 100px;
+                // height: 100px;
                 padding-top: 10px;
-                padding-bottom: 30px;
+                // padding-bottom: 30px;
                 .inputWrap{
                     padding-top: 10px !important;
                     width: 100%;
                 }
                 .cke{
                     width: 100%;
-                    height:200px
+                    // height:200px
                 }
             }
 
@@ -87,7 +87,15 @@
     .extra{
         height: 200px;
     }
-    .extra2{
-        height: 340px;
-    }
+    // .extra2{
+    //     height: 340px;
+    // }
 }
+.coupon-generation-page{
+.primary{
+    width: fit-content;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+    padding: 13px 20px;
+}}

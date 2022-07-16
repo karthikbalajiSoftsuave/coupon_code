@@ -13,7 +13,7 @@ export const MenuButton: React.FC<Tprops> = ({ img, name, path }) => {
         <div className="btn">
             <NavLink className="inventorys-selector" to={path}>
                 <div className="header-btn">
-                    <img src={img} />
+                    <img src={img} alt=""/>
                     <div className="header-label">{name}</div>
                 </div>
             </NavLink>

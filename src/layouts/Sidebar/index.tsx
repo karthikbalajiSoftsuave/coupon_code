@@ -13,12 +13,15 @@ import HistoryInactive from "../../assets/icons/history-inactive.svg"
 
 import "./styles.scss"
 import { SideMenuItem } from "../../components/SideMenuItem";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../redux/Actions/actions";
 
 type Tprops = {
 
 }
 
 export const Sidebar: React.FC<Tprops> = () => {
+    const dispatch = useDispatch()
     return (
         <section className="headerCon">
             <div className="menu-header">
@@ -58,6 +61,7 @@ export const Sidebar: React.FC<Tprops> = () => {
                                 path="/coupon-code/dashboard"
                                 activeIcon={DashboardActive}
                                 inActiveIcon={DashboardInactive}
+                                onClick={()=>dispatch(setUserDetails(undefined))}
                             />
                         </div>
                     </>

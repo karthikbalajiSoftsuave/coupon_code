@@ -1,19 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import "./styles.scss"
-import { TextBox } from '../../../components/TextBox/index';
+import { TextBox } from '../../../../components/TextBox/index';
 import { CKEditor } from "ckeditor4-react";
-import { ActionButton } from "../../../components/ActionButton";
-import { RadioGroup } from "../../../components/RadioGroup";
+import { ActionButton } from "../../../../components/ActionButton";
+import { RadioGroup } from "../../../../components/RadioGroup";
 import { useForm } from "react-hook-form";
-import { ICouponGeneration } from "../../../interface/couponGeneration.interface";
+import { ICouponGeneration } from "../../../../interface/couponGeneration.interface";
+import { showNotification, STATUS } from "../../../../common/constants";
+import { CouponService } from "../../../../services/classService/couponService";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/Reducer";
 type Tprops = {
 
 }
 export const CouponGeneration: React.FC<Tprops> = () => {
 
     const { register, setValue, watch, handleSubmit, formState: { errors } } = useForm<ICouponGeneration>({ mode: "all" });
+    const editData = useSelector<RootState>((state) => state?.couponData?.couponData)
+    const couponService = new CouponService()
+    const navigate = useNavigate()
 
+    console.log("errors", errors);
 
     const validations = {
         couponCode: {
@@ -52,23 +61,18 @@ export const CouponGeneration: React.FC<Tprops> = () => {
         },
     }
 
-    const onSubmit = (values: ICouponGeneration) => {
+    const onSubmit = async (values: ICouponGeneration) => {
         console.log("values", values)
+        const addCoupon = await couponService.AddCoupon(values)
+        if (addCoupon.status === STATUS.SUCCESS) {
+            showNotification(STATUS.SUCCESS, addCoupon.message)
+            navigate("/coupon-code/coupons/allCoupons")
+        }
+        else {
+            showNotification(STATUS.FAILURE, addCoupon.message)
+        }
     }
-    console.log("watch", watch())
-
-    useEffect(() => {
-
-        // setValue("couponCode", "Coupon code")
-        // setValue("discountDetails.amount", 50)
-        // setValue("discountDetails.couponQuantity", 50)
-        // setValue("validityDetails.from", "2022-07-30")
-        // setValue("validityDetails.claimLimit", "15")
-        // setValue("validityDetails.to", "2022-07-29")
-        // setValue("validityDetails.validityDays", 15)
-        // setValue("claimVariant", "OTP")
-        // setValue("discountType", "Percentage")
-    }, [])
+    console.log("watch", watch())   
 
     return (
         <div className="coupon-generation-page">
@@ -94,7 +98,9 @@ export const CouponGeneration: React.FC<Tprops> = () => {
                             options={["Flat amount", "Percentage"]}
                             defaultValue={watch().discountType}
                             formValue={(value) => setValue("discountType", value)}
+                            register={register("discountType", validations.discountType)}
                         />
+                        {errors.discountType?.type !== undefined && <p className="error">{errors.discountType ? errors.discountType.message : ""}</p>}
                     </div>
                     <div className="coupon-generation-page-option">
                         <p className="option-label">Claim Variant</p>
@@ -102,7 +108,9 @@ export const CouponGeneration: React.FC<Tprops> = () => {
                             options={["None", "OTP", "Pin"]}
                             defaultValue={watch().claimVariant}
                             formValue={(value) => setValue("claimVariant", value)}
+                            register={register("claimVariant", validations.claimVariant)}
                         />
+                        {errors.claimVariant?.type !== undefined && <p className="error">{errors.claimVariant ? errors.claimVariant.message : ""}</p>}
                     </div>
 
                 </div>
@@ -171,7 +179,8 @@ export const CouponGeneration: React.FC<Tprops> = () => {
                             <CKEditor
                                 name="couponDescription"
                                 data="<p>Hello from the first editor working with the context!</p>"
-                            // onChange={(e:any) => setValue("couponDescription", e)}
+                                initData={watch("couponDescription")}
+                                onChange={(e: any) => setValue("couponDescription", String(e.editor.getData()))}
                             />
                         </div>
                     </div>
